@@ -11,19 +11,21 @@ ws.addEventListener('message', e => {
     const obj = JSON.parse(e.data);
 
     console.log('=======new event=======');
-    console.log('時間：' + obj.time);
+    console.log(obj.time);
     console.log('コード：' + obj.code);
 
-    switch (obj.code) {
+    var eventCode = obj.code;
+
+    switch (eventCode) {
         case 551:
+            var eqScale=obj.earthquake.maxScale / 10;
             console.log('地震情報');
-            console.log(obj.earthquake.hypocenter.name + ' 最大震度' + obj.earthquake.maxScale);
+            console.log(obj.earthquake.hypocenter.name + ' 最大震度' + eqScale);
             break;
 
         case 552:
             console.log('警告。津波の情報を受信');
-            var eqGrade=obj.areas[0].grade / 10;
-            console.log(eqGrade + '(' + obj.areas[0].name +')');
+            console.log(obj.areas[0].grade + '(' + obj.areas[0].name +')');
             break;
 
         case 554:
